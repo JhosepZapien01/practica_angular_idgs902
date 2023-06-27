@@ -1,0 +1,64 @@
+<h1 class="primaryTitle">{{title}}</h1>
+<div class="contenedor" style="text-align: center;">
+  <img src="https://sdindustrial.com.mx/wp-content/uploads/2022/09/codigos-colores-resistencias.png.webp">
+</div>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <mat-card>
+        <mat-card-content>Colores de la etiqueta:</mat-card-content>
+        <mat-card-content>
+          <h4>1°Banda de Color</h4>
+          <mat-form-field>
+            <mat-label></mat-label>
+            <mat-select [(ngModel)]="valorSeleccionadoBanda1">
+              <mat-option *ngFor="let color of banda1" [value]="color.valor">
+                {{color.vistaValor}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <h4>2°Banda de Color</h4>
+          <mat-form-field>
+            <mat-label></mat-label>
+            <mat-select [(ngModel)]="valorSeleccionadoBanda2">
+              <mat-option *ngFor="let color2 of banda2" [value]="color2.valor2">
+                {{color2.vistaValor2}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <h4>Multiplicador:</h4>
+          <mat-form-field>
+            <mat-label></mat-label>
+            <mat-select [(ngModel)]="multi">
+              <mat-option *ngFor="let multi of multiplicador " [value]="multi.valorM">
+                {{multi.vistaValorM}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <h4> Tolerancia:</h4>
+          <mat-form-field>
+            <mat-label></mat-label>
+            <mat-select [(ngModel)]="tole">
+              <mat-option *ngFor="let tolerancia of tolerancia " [value]="tolerancia.valorT">
+                {{tolerancia.vistaValorT}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <button mat-raised-button color="primary" (click)="obtenerValor()">Calcular</button>
+          <br>
+          <br>
+          <mat-form-field class="example-full-width">
+            <mat-label>Resultado:</mat-label>
+            <input matInput [value]="total ? total + '&Omega;' : ''">
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-lg-5" style="text-align: right;">
+        <h2 class="form-control" [textContent]="total ? total + 'Ω' : ''"></h2>
+    </div>
+  </div>
+</div>

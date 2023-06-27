@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2" style="background-color: #123073;"></div>
+    <div class="col-md-8" style="text-align: center;">
+      <img src="https://sic.cultura.gob.mx/images/128015" class="img-fluid">
+    </div>
+    <div class="col-md-2" style="background-color: #123073;"></div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col lg 4">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Cinepolis</mat-card-title>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Nombre:</mat-label>
+              <input matInput placeholder="Ejemplo: Juan Ramirez" name="Nombre" [(ngModel)]="Nombre">
+            </mat-form-field>
+            &nbsp;
+            <mat-form-field  class="example-full-width">
+              <mat-label>Numero de Personas:</mat-label>
+              <input matInput placeholder="Ejemplo: 6 o 8" (keypress)="validateInput($event)" name="Persona" [(ngModel)]="Persona">
+            </mat-form-field>
+            <br>
+            <mat-radio-group [(ngModel)]="tarjetaSeleccionada" name="Tarjeta" aria-label="Select an option">
+              <mat-label>Tarjeta CineCo:</mat-label>
+              <mat-radio-button *ngFor="let op of seleccionarTarjeta" [value]="op.value">
+                {{ op.label }}
+              </mat-radio-button>
+            </mat-radio-group>
+            &nbsp;
+            <mat-form-field  class="example-full-width">
+              <mat-label>Boletos:</mat-label>
+              <input matInput placeholder="Ejemplo: 1 o 9" (keypress)="validateInput($event)" name="Boleto" [(ngModel)]="Boleto">
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" (click)="apagar()">Cobrar</button>
+          </form>
+          <div class="col-lg.5" style="text-align: right;">
+            <mat-form-field class="example-full-width">
+              <mat-label>A pagar:</mat-label>
+              <input matInput [value]="respuesta ? respuesta: ''">
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
