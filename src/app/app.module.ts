@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResistenciaModule } from './resistencia/resistencia.module';
 import { DistanciaModule } from './distancia/distancia.module';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DistanciaModule } from './distancia/distancia.module';
     ResistenciaModule,
     CinepolisModule,
     DistanciaModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
