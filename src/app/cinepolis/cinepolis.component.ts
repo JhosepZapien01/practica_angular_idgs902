@@ -8,11 +8,11 @@ import Swal from 'sweetalert2';
 })
 export class CinepolisComponent {
 
-  Nombre: string = '';
+  Nombre!: string;
   Persona: string = '';
   Boleto: string = '';
   respuesta:number=0;
-  tarjetaSeleccionada: boolean = true;
+  tarjetaSeleccionada!: boolean;
   seleccionarTarjeta = [
     { value: true, label: 'Sí' },
     { value: false, label: 'No' }
@@ -34,7 +34,7 @@ export class CinepolisComponent {
     let descuento2 = 0;
     let descuento3 = 0;
     console.log(this.tarjetaSeleccionada)
-    if (parseInt(this.Persona) > 7) {
+    if (parseInt(this.Persona) == 1 && parseInt(this.Boleto)>7 ) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -42,40 +42,45 @@ export class CinepolisComponent {
       })
     }
     else {
-      if (this.seleccionarTarjeta.find(op => op.value === true)) {
+      debugger;
+      if (this.tarjetaSeleccionada) {
         valorInicial = parseInt(this.Boleto) * 12;
-        descuento1 = valorInicial *0.10
+        descuento1 = valorInicial - (valorInicial *0.10);
         if (parseInt(this.Boleto) > 5) {
-          descuento2 = descuento1*0.15
-          if (parseInt(this.Boleto) >= 3 || parseInt(this.Boleto) <= 5)
+          descuento2 = descuento1-(descuento1*0.15);
+          if (parseInt(this.Boleto) >= 3 && parseInt(this.Boleto) <= 5)
           {
-            descuento3 = descuento2*0.10;
-            this.respuesta = valorInicial-(descuento1+descuento2+descuento3);
+            descuento3 = descuento2-(descuento2*0.10);
+            this.respuesta = descuento3
           }
           else
           {
-            this.respuesta = valorInicial-(descuento1+descuento2)
+            this.respuesta = descuento2
           }
         }
         else
         {
-          this.respuesta = valorInicial-descuento1
+          this.respuesta = descuento1
         }
       }
-      else {
+      else{
         if (parseInt(this.Boleto) > 5) {
-          descuento2 = descuento1*.15
-          if (parseInt(this.Boleto) >= 3 || parseInt(this.Boleto) <= 5) {
-            descuento3 = descuento2*0.10;
-            this.respuesta = valorInicial-(descuento2+descuento3);
+          valorInicial = parseInt(this.Boleto) * 12;
+          descuento2 = valorInicial-(valorInicial*.15)
+          this.respuesta= descuento2;
+          if (parseInt(this.Boleto) >= 3 && parseInt(this.Boleto) <= 5) {
+            descuento3 = descuento2-(descuento2*0.10);
+            this.respuesta = descuento3;
           }
         }
         else {
-          if (parseInt(this.Boleto) >= 3 || parseInt(this.Boleto) <= 5) {
-            descuento3 = descuento2*0.10;
-            this.respuesta = valorInicial-(descuento2+descuento3);
+          if (parseInt(this.Boleto) >= 3 && parseInt(this.Boleto) <= 5) {
+            valorInicial = parseInt(this.Boleto) * 12;
+            descuento3 = valorInicial-(valorInicial*0.10);
+            this.respuesta = descuento3
           }
           else {
+            valorInicial = parseInt(this.Boleto) * 12;
             this.respuesta =  valorInicial;
           }
         }

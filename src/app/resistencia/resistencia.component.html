@@ -1,5 +1,5 @@
 <h1 class="primaryTitle">{{title}}</h1>
-<div class="contenedor" style="text-align: center;">
+<div class="contenedor text-center">
   <img src="https://sdindustrial.com.mx/wp-content/uploads/2022/09/codigos-colores-resistencias.png.webp">
 </div>
 <br>
@@ -7,58 +7,60 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-4">
-      <mat-card>
-        <mat-card-content>Colores de la etiqueta:</mat-card-content>
-        <mat-card-content>
+      <div class="card">
+        <div class="card-body">Colores de la etiqueta:</div>
+        <div class="card-body">
           <h4>1°Banda de Color</h4>
-          <mat-form-field>
-            <mat-label></mat-label>
-            <mat-select [(ngModel)]="valorSeleccionadoBanda1">
-              <mat-option *ngFor="let color of banda1" [value]="color.valor">
+          <div class="form-group">
+            <label></label>
+            <select class="form-control" [(ngModel)]="valorSeleccionadoBanda1">
+              <option *ngFor="let color of banda1" [value]="color.valor" [style.background-color]="color.color" [style.color]="'white'">
                 {{color.vistaValor}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+              </option>
+            </select>
+          </div>
           <h4>2°Banda de Color</h4>
-          <mat-form-field>
-            <mat-label></mat-label>
-            <mat-select [(ngModel)]="valorSeleccionadoBanda2">
-              <mat-option *ngFor="let color2 of banda2" [value]="color2.valor2">
+          <div class="form-group">
+            <label></label>
+            <select class="form-control" [(ngModel)]="valorSeleccionadoBanda2">
+              <option *ngFor="let color2 of banda2" [value]="color2.valor2" [style.background-color]="color2.color" [style.color]="'white'">
                 {{color2.vistaValor2}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+              </option>
+            </select>
+          </div>
           <h4>Multiplicador:</h4>
-          <mat-form-field>
-            <mat-label></mat-label>
-            <mat-select [(ngModel)]="multi">
-              <mat-option *ngFor="let multi of multiplicador " [value]="multi.valorM">
+          <div class="form-group">
+            <label></label>
+            <select class="form-control" [(ngModel)]="multi">
+              <option *ngFor="let multi of multiplicador" [value]="multi.valorM" [style.background-color]="multi.color" [style.color]="'white'">
                 {{multi.vistaValorM}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <h4> Tolerancia:</h4>
-          <mat-form-field>
-            <mat-label></mat-label>
-            <mat-select [(ngModel)]="tole">
-              <mat-option *ngFor="let tolerancia of tolerancia " [value]="tolerancia.valorT">
+              </option>
+            </select>
+          </div>
+          <h4>Tolerancia:</h4>
+          <div class="form-group">
+            <label></label>
+            <select class="form-control" [(ngModel)]="tole">
+              <option *ngFor="let tolerancia of tolerancia" [value]="tolerancia.valorT" [style.background-color]="tolerancia.color" [style.color]="'white'">
                 {{tolerancia.vistaValorT}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+              </option>
+            </select>
+          </div>
           <br>
-          <button mat-raised-button color="primary" (click)="obtenerValor()">Calcular</button>
+          <button class="btn btn-primary" (click)="obtenerValor()">Calcular</button>
           <br>
           <br>
-          <mat-form-field class="example-full-width">
-            <mat-label>Resultado:</mat-label>
-            <input matInput [value]="total ? total + '&Omega;' : ''">
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
+          <div class="form-group">
+            <label>Resultado:</label>
+            <input class="form-control" [value]="total ? total + '&Omega;' : ''">
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-5" style="text-align: right;">
+    <div class="col-lg-5 text-right">
         <h2 class="form-control" [textContent]="total ? total + 'Ω' : ''"></h2>
+        <h3 class="form-control" [textContent]="maximo ? maximo +'Ω'+' '+'Valor Maximo' : ''"></h3>
+        <h3 class="form-control" [textContent]="minimo ? minimo +'Ω'+' '+'Valor Minimo' : ''"></h3>
     </div>
   </div>
 </div>

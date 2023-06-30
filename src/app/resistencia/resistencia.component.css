@@ -1,3 +1,9 @@
 .primaryTitle{
 text-align: center;
 }
+::ng-deep .mat-option.mat-selected,
+::ng-deep .mat-option.mat-active {
+  background-color: blue !important; /* Cambia el color de fondo */
+  color: white  !important; /* Cambia el color del texto */
+}
+
