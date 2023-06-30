@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResistenciaModule } from './resistencia/resistencia.module';
+import { DistanciaModule } from './distancia/distancia.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { ResistenciaModule } from './resistencia/resistencia.module';
     BrowserModule,
     ResistenciaModule,
     CinepolisModule,
+    DistanciaModule,
     BrowserAnimationsModule
   ],
   providers: [],

@@ -1,0 +1,17 @@
+<div class="contenedor">
+  <mat-form-field>
+    <input matInput [(ngModel)]="x1" type="number" placeholder="Numero 1">
+  </mat-form-field>
+  <mat-form-field>
+    <input matIput [(ngModel)]="y1" type="number" placeholder="Numero 2">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="x2" type="number" placeholder="Numero 3">
+  </mat-form-field>
+  <mat-form-field>
+    <input matIput [(ngModel)]="y2" type="number" placeholder="Numero 4">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="calcular()">Calcular</button>
+  <h3><p>El resultado es {{resultado}}</p></h3>
+</div>
+
