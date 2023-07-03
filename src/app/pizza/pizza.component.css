@@ -1,0 +1,8 @@
+tfoot {
+  font-weight: bold;
+  background-color: lightgray;
+}
+
+tfoot td {
+  text-align: center;
+}

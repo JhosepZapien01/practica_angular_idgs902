@@ -1,0 +1,158 @@
+<h1>Pedido de Pizzas</h1>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Datos Pedido:</h3>
+      </div>
+      <div class="card-body">
+
+      </div>
+      <form (ngSubmit)="onSubmit()" [formGroup]="pedidoForm">
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">Nombre del cliente:</label>
+            <input type="text" id="nombre" class="form-control" formControlName="nombre" [readonly]="!nombreEditable"
+              required>
+          </div>
+          <div class="col-md-6">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input type="text" class="form-control" formControlName="direccion" [readonly]="!direccionEditable"
+              required>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input type="text" class="form-control" formControlName="telefono">
+          </div>
+          <div class="col-md-6">
+            <label for="numPizzas" class="form-label">Num. Pizzas:</label>
+            <input type="number" class="form-control" formControlName="numPizzas" max="10" min="1">
+          </div>
+        </div>
+        <h3>Tamaño de la Pizza:</h3>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="tamanio" id="tamanioChico" value="chico">
+              <label class="form-check-label" for="tamanioChico">
+                Chico $40
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="tamanio" id="tamanioMediano"
+                value="mediano">
+              <label class="form-check-label" for="tamanioMediano">
+                Mediano $80
+              </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="tamanio" id="tamanioGrande" value="grande">
+              <label class="form-check-label" for="tamanioGrande">
+                Grande $120
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <h3>Ingredientes:</h3>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="ingreJamon" id="ingreJamon" value="jamon"
+                [checked]="ingreJamonSelected">
+              <label class="form-check-label" for="ingreJamon">
+                Jamon $10
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="ingrePinia" id="ingrePinia" value="piña"
+                [checked]="ingrePiniaSelected">
+              <label class="form-check-label" for="ingrePinia">
+                Piña $10
+              </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="ingreChampi" id="ingreChampi"
+                value="champinion" [checked]="ingreChampiSelected">
+              <label class="form-check-label" for="ingreChampi">
+                Champiñones $10
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="ingrePeperoni" id="ingrePeperoni"
+                value="peperoni" [checked]="ingrePeperoniSelected">
+              <label class="form-check-label" for="ingrePeperoni">
+                Peperoni $20
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="d-grid gap-2 col-4 float-end">
+          <button class="btn btn-info btn-lg" type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-6">
+    <h1>Registro de Pizzas</h1>
+    <table class="table">
+      <thead class="table">
+        <tr>
+          <th>Tamaño</th>
+          <th>Ingredientes</th>
+          <th>Num.Pizzas</th>
+          <th>Sub.Total</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos; let i = index">
+          <td>{{ pedido.tamanio }}</td>
+          <td>{{ pedido.ingredientes.join(', ') }}</td>
+          <td>{{ pedido.numPizzas }}</td>
+          <td>{{ calcularPrecioTotal(pedido) }}</td>
+          <td>
+            <button class="btn btn-danger" type="button" (click)="quitarPedido(i)">Quitar</button>
+          </td>
+          <td>
+            <button class="btn btn-primary" type="button" (click)="terminarPedido()">Terminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <div class="col-6">
+    <h1>Ventas del día</h1>
+    <table class="table">
+      <thead class="table">
+        <tr>
+          <th>Persona</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos">
+          <td>{{ pedido.nombre }}</td>
+          <td>{{ calcularPrecioTotal(pedido) }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">Total: {{ calcularTotalVentas() }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

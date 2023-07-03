@@ -6,10 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResistenciaModule } from './resistencia/resistencia.module';
 import { DistanciaModule } from './distancia/distancia.module';
 import { AppRoutingModule } from './app.routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PizzaComponent } from './pizza/pizza.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PizzaComponent,
   ],
   imports: [
     BrowserModule,
@@ -17,6 +20,8 @@ import { AppRoutingModule } from './app.routing.module';
     CinepolisModule,
     DistanciaModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [],
