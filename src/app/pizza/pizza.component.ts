@@ -117,12 +117,16 @@ export class PizzaComponent {
     };
 
     const preciosTamanio: PreciosIngredientes = {
-      personal: 40,
+      chico: 40,
       mediano: 80,
       grande: 120
     };
 
     let precioTotal = 0;
+
+    if (preciosTamanio.hasOwnProperty(pedido.tamanio)) {
+      precioTotal += preciosTamanio[pedido.tamanio];
+    }
 
     for (const ingrediente of pedido.ingredientes) {
       if (preciosIngredientes.hasOwnProperty(ingrediente)) {
@@ -130,15 +134,14 @@ export class PizzaComponent {
       }
     }
 
-    if (preciosTamanio.hasOwnProperty(pedido.tamanio)) {
-      precioTotal += preciosTamanio[pedido.tamanio];
-    }
-    precioTotal *= pedido.numPizzas;
+    precioTotal = precioTotal * pedido.numPizzas;
 
     console.log('Precio total:', precioTotal);
 
     return precioTotal;
   }
+
+
 
 
   terminarPedido() {
@@ -155,6 +158,7 @@ export class PizzaComponent {
         this.nombreEditable = true;
         this.direccionEditable = true;
         this.mostrarTablaVentas = true;
+        this.telefonoEditable = true;
 
         const totalVentasPorNombre = this.calcularSubTotalVentasPorNombre();
 
