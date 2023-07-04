@@ -24,7 +24,8 @@
         <div class="row mb-4">
           <div class="col-md-6">
             <label for="telefono" class="form-label">Teléfono:</label>
-            <input type="text" class="form-control" formControlName="telefono">
+            <input type="text" id="nombre" class="form-control" formControlName="nombre" [readonly]="!telefonoEditable"
+              required>
           </div>
           <div class="col-md-6">
             <label for="numPizzas" class="form-label">Num. Pizzas:</label>
@@ -135,7 +136,7 @@
 
   <div class="col-6">
     <h1>Ventas del día</h1>
-    <table class="table">
+    <table class="table" *ngIf="mostrarTablaVentas"> <!-- Mostrar la tabla solo si mostrarTablaVentas es verdadero -->
       <thead class="table">
         <tr>
           <th>Persona</th>
@@ -155,4 +156,3 @@
       </tfoot>
     </table>
   </div>
-</div>

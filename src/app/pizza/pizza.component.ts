@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pizza',
@@ -17,16 +18,18 @@ export class PizzaComponent {
   ingreJamon!: string;
   ingreChampi!: string;
   pedidoForm!: FormGroup;
+  mostrarTablaVentas = false;
 
-  ingreJamonSelected = false;
-  ingrePiniaSelected = false;
-  ingreChampiSelected = false;
-  ingrePeperoniSelected = false;
+  ingreJamonSelected = true;
+  ingrePiniaSelected = true;
+  ingreChampiSelected = true;
+  ingrePeperoniSelected = true;
 
 
   pedidos: any[] = [];
   nombreEditable = true;
   direccionEditable = true;
+  telefonoEditable = true;
 
   constructor(private readonly fb: FormBuilder) {
     this.pedidoForm = this.initForm();
@@ -36,6 +39,7 @@ export class PizzaComponent {
     this.guardarPedido();
     this.nombreEditable = false;
     this.direccionEditable = false;
+    this.telefonoEditable =  false;
   }
 
   guardarPedido() {
@@ -59,10 +63,11 @@ export class PizzaComponent {
     this.calcularPrecioTotal(pedido);
     this.pedidos.push(pedido);
 
-    this.ingreJamonSelected = false;
-    this.ingrePiniaSelected = false;
-    this.ingreChampiSelected = false;
-    this.ingrePeperoniSelected = false;
+    this.pedidoForm.get('ingreJamon')?.setValue(false);
+    this.pedidoForm.get('ingrePinia')?.setValue(false);
+    this.pedidoForm.get('ingreChampi')?.setValue(false);
+    this.pedidoForm.get('ingrePeperoni')?.setValue(false);
+    this.mostrarTablaVentas = false;
   }
 
   validarIngredientes(pedido: any): string[] {
@@ -128,21 +133,71 @@ export class PizzaComponent {
     if (preciosTamanio.hasOwnProperty(pedido.tamanio)) {
       precioTotal += preciosTamanio[pedido.tamanio];
     }
+    precioTotal *= pedido.numPizzas;
 
     console.log('Precio total:', precioTotal);
 
     return precioTotal;
   }
 
+
   terminarPedido() {
-    this.pedidoForm.reset();
-    this.nombreEditable = true;
-    this.direccionEditable = true;
+    Swal.fire({
+      title: 'Confirmación',
+      text: '¿Estás seguro de que deseas terminar tu pedido?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.pedidoForm.reset();
+        this.nombreEditable = true;
+        this.direccionEditable = true;
+        this.mostrarTablaVentas = true;
+
+        const totalVentasPorNombre = this.calcularSubTotalVentasPorNombre();
+
+        let mensaje = 'Pedidos terminados:\n';
+
+        for (const nombre in totalVentasPorNombre) {
+          if (totalVentasPorNombre.hasOwnProperty(nombre)) {
+            const totalPagar = totalVentasPorNombre[nombre];
+            mensaje += `- ${nombre}: $${totalPagar}\n`;
+          }
+        }
+
+        Swal.fire('Pedidos terminados', mensaje, 'success');
+      }
+    });
   }
 
   quitarPedido(index: number) {
     this.pedidos.splice(index, 1);
+    this.pedidoForm.get('ingreJamon')?.setValue(false);
+    this.pedidoForm.get('ingrePinia')?.setValue(false);
+    this.pedidoForm.get('ingreChampi')?.setValue(false);
+    this.pedidoForm.get('ingrePeperoni')?.setValue(false);
   }
+
+
+  calcularSubTotalVentasPorNombre(): { [nombre: string]: number } {
+    const totalVentasPorNombre: { [nombre: string]: number } = {};
+
+    for (const pedido of this.pedidos) {
+      const nombre = pedido.nombre;
+      const subtotal = this.calcularPrecioTotal(pedido);
+
+      if (totalVentasPorNombre.hasOwnProperty(nombre)) {
+        totalVentasPorNombre[nombre] += subtotal;
+      } else {
+        totalVentasPorNombre[nombre] = subtotal;
+      }
+    }
+
+    return totalVentasPorNombre;
+  }
+
 
   calcularTotalVentas(): number {
     let totalVentas = 0;
